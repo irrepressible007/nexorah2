@@ -1,5 +1,200 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   NEXORAH DESIGN SYSTEM
+   ============================================================ */
+
+@layer base {
+  :root {
+    --primary: #ec4899;
+    --primary-glow: rgba(236, 72, 153, 0.35);
+    --primary-subtle: rgba(236, 72, 153, 0.08);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: white;
+  }
+}
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+
+@layer utilities {
+
+  /* Glass morphism card */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  /* Neon glow border on hover */
+  .neon-border {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .neon-border:hover {
+    border-color: var(--primary-glow);
+    box-shadow: 0 0 20px var(--primary-glow), inset 0 0 20px rgba(236, 72, 153, 0.04);
+  }
+
+  /* Grain/noise texture overlay */
+  .grain-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    border-radius: inherit;
+    opacity: 0.6;
+  }
+
+  /* Text shimmer effect */
+  .text-shimmer {
+    background: linear-gradient(90deg, #ffffff 0%, var(--primary) 50%, #ffffff 100%);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s linear infinite;
+  }
+
+  /* Glow text */
+  .text-glow {
+    text-shadow: 0 0 20px var(--primary-glow), 0 0 40px var(--primary-glow);
+  }
+
+  /* Diagonal clip â€” bottom of hero sections */
+  .clip-diagonal {
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+  }
+
+  /* Reading progress bar */
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), #a855f7);
+    z-index: 9999;
+    transform-origin: left;
+    transition: width 0.1s linear;
+  }
+}
+
+/* ============================================================
+   KEYFRAME ANIMATIONS
+   ============================================================ */
+
+@keyframes shimmer {
+  from { background-position: 200% center; }
+  to   { background-position: -200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px var(--primary-glow); }
+  50%       { box-shadow: 0 0 24px var(--primary-glow), 0 0 48px var(--primary-glow); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes nexorah-marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes nexorah-marquee-reverse {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* ============================================================
+   ANIMATION UTILITIES
+   ============================================================ */
+
+.animate-float       { animation: float 4s ease-in-out infinite; }
+.animate-pulse-glow  { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-spin-slow   { animation: spin-slow 20s linear infinite; }
+.animate-marquee     { animation: nexorah-marquee 40s linear infinite; }
+.animate-marquee-rev { animation: nexorah-marquee-reverse 40s linear infinite; }
+
+/* ============================================================
+   FORM INPUTS â€” FLOATING LABEL STYLE
+   ============================================================ */
+
+.input-nexorah {
+  width: 100%;
+  background: rgba(255,255,255,0.03);
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 12px 0;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input-nexorah:focus {
+  border-color: var(--primary);
+}
+
+.input-nexorah::placeholder {
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
+/* ============================================================
+   SCROLLBAR STYLING
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -202,7 +397,7 @@
 
 .nexorah-prose {
   color: #d1d5db;
-  line-height: 1.8;
+  line-height: 1.5;
   font-size: 1.05rem;
 }
 .nexorah-prose h1, .nexorah-prose h2, .nexorah-prose h3 {
@@ -215,7 +410,7 @@
 }
 .nexorah-prose h2 { font-size: 1.6rem; }
 .nexorah-prose h3 { font-size: 1.25rem; }
-.nexorah-prose p  { margin-bottom: 1.4rem; }
+.nexorah-prose p  { margin-bottom: 1rem; }
 .nexorah-prose a  { color: var(--primary); text-decoration: underline; }
 .nexorah-prose blockquote {
   border-left: 3px solid var(--primary);
@@ -240,6 +435,28 @@
   border-radius: 4px;
   font-size: 0.85em;
 }
+
+/* Custom Line Height Picker for Quill */
+.ql-snow .ql-picker.ql-lineHeight {
+  width: 100px;
+}
+.ql-snow .ql-picker.ql-lineHeight .ql-picker-label::before {
+  content: 'Spacing';
+}
+.ql-snow .ql-picker.ql-lineHeight .ql-picker-label[data-value="1.0"]::before,
+.ql-snow .ql-picker.ql-lineHeight .ql-picker-item[data-value="1.0"]::before { content: '1.0'; }
+.ql-snow .ql-picker.ql-lineHeight .ql-picker-label[data-value="1.2"]::before,
+.ql-snow .ql-picker.ql-lineHeight .ql-picker-item[data-value="1.2"]::before { content: '1.2'; }
+.ql-snow .ql-picker.ql-lineHeight .ql-picker-label[data-value="1.5"]::before,
+.ql-snow .ql-picker.ql-lineHeight .ql-picker-item[data-value="1.5"]::before { content: '1.5'; }
+.ql-snow .ql-picker.ql-lineHeight .ql-picker-label[data-value="1.8"]::before,
+.ql-snow .ql-picker.ql-lineHeight .ql-picker-item[data-value="1.8"]::before { content: '1.8'; }
+.ql-snow .ql-picker.ql-lineHeight .ql-picker-label[data-value="2.0"]::before,
+.ql-snow .ql-picker.ql-lineHeight .ql-picker-item[data-value="2.0"]::before { content: '2.0'; }
+.ql-snow .ql-picker.ql-lineHeight .ql-picker-label[data-value="2.5"]::before,
+.ql-snow .ql-picker.ql-lineHeight .ql-picker-item[data-value="2.5"]::before { content: '2.5'; }
+.ql-snow .ql-picker.ql-lineHeight .ql-picker-label[data-value="3.0"]::before,
+.ql-snow .ql-picker.ql-lineHeight .ql-picker-item[data-value="3.0"]::before { content: '3.0'; }
 
 /* ============================================================
    QUILL DARK MODE OVERRIDES

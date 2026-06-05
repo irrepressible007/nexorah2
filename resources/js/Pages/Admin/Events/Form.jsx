@@ -4,8 +4,15 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+
+const Parchment = Quill.import('parchment');
+const LineHeightStyle = new Parchment.Attributor.Style('lineHeight', 'line-height', {
+  scope: Parchment.Scope.INLINE,
+  whitelist: ['1.0', '1.2', '1.5', '1.8', '2.0', '2.5', '3.0']
+});
+Quill.register(LineHeightStyle, true);
 
 export default function Form({ event }) {
     const isEditing = !!event.id;
@@ -46,6 +53,7 @@ export default function Form({ event }) {
             [{ 'font': [] }, { 'size': ['small', false, 'large', 'huge'] }],
             ['bold', 'italic', 'underline', 'strike', 'blockquote'],
             [{ 'color': [] }, { 'background': [] }],
+            [{ 'lineHeight': ['1.0', '1.2', '1.5', '1.8', '2.0', '2.5', '3.0'] }],
             [{ 'script': 'sub'}, { 'script': 'super' }],
             [{ 'list': 'ordered'}, { 'list': 'bullet'}, { 'indent': '-1'}, { 'indent': '+1'}],
             [{ 'direction': 'rtl' }, { 'align': [] }],
