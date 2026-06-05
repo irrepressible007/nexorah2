@@ -31,20 +31,17 @@ export default function Form({ post }) {
 
     const modules = {
         toolbar: [
-            [{ 'header': [1, 2, 3, false] }],
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'font': [] }, { 'size': ['small', false, 'large', 'huge'] }],
             ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-            [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'script': 'sub'}, { 'script': 'super' }],
+            [{ 'list': 'ordered'}, { 'list': 'bullet'}, { 'indent': '-1'}, { 'indent': '+1'}],
+            [{ 'direction': 'rtl' }, { 'align': [] }],
             ['link', 'image', 'video'],
             ['clean']
         ],
     };
-
-    const formats = [
-        'header',
-        'bold', 'italic', 'underline', 'strike', 'blockquote',
-        'list', 'bullet', 'indent',
-        'link', 'image', 'video'
-    ];
 
     return (
         <AuthenticatedLayout
@@ -84,7 +81,6 @@ export default function Form({ post }) {
                                             value={data.content} 
                                             onChange={(content) => setData('content', content)} 
                                             modules={modules}
-                                            formats={formats}
                                             className="h-[300px]"
                                         />
                                     </div>

@@ -40,6 +40,20 @@ export default function Form({ event }) {
         }
     };
 
+    const modules = {
+        toolbar: [
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'font': [] }, { 'size': ['small', false, 'large', 'huge'] }],
+            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'script': 'sub'}, { 'script': 'super' }],
+            [{ 'list': 'ordered'}, { 'list': 'bullet'}, { 'indent': '-1'}, { 'indent': '+1'}],
+            [{ 'direction': 'rtl' }, { 'align': [] }],
+            ['link', 'image', 'video'],
+            ['clean']
+        ]
+    };
+
     return (
         <AuthenticatedLayout
             header={
@@ -76,16 +90,8 @@ export default function Form({ event }) {
                                         theme="snow"
                                         value={data.description}
                                         onChange={(content) => setData('description', content)}
-                                        className="text-gray-300"
-                                        modules={{
-                                            toolbar: [
-                                                [{ 'header': [2, 3, false] }],
-                                                ['bold', 'italic', 'underline', 'strike'],
-                                                [{'list': 'ordered'}, {'list': 'bullet'}],
-                                                ['link'],
-                                                ['clean']
-                                            ]
-                                        }}
+                                        className="text-gray-300 bg-white dark:bg-gray-900 rounded-md"
+                                        modules={modules}
                                     />
                                 </div>
                                 <InputError message={errors.description} className="mt-2" />
