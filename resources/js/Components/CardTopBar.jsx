@@ -29,21 +29,21 @@ export default function CardTopBar({ event, primaryColor }) {
     }, [event.event_date, event.status]);
 
     return (
-        <div className="absolute top-0 left-0 w-full p-4 flex flex-col md:flex-row gap-3 justify-between items-start md:items-start z-20 pointer-events-none">
-            {/* Status and Date */}
-            <div className="flex flex-col gap-2 items-start">
-                <span className="px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] rounded-full bg-black/50 backdrop-blur-md border border-white/10 flex items-center gap-2 text-white shadow-xl">
-                    {(statusLabel === 'upcoming' || statusLabel === 'ongoing') && <span className="w-1.5 h-1.5 rounded-full animate-pulse inline-block" style={{ background: primaryColor }} />}
+        <div className="absolute top-0 left-0 w-full p-5 flex flex-col gap-3 z-20 pointer-events-none">
+            {/* Top Row: Status (Left) and Date (Right) */}
+            <div className="flex justify-between items-start w-full gap-2">
+                <span className="px-3 py-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] rounded bg-black/80 backdrop-blur-md border border-white/20 flex items-center gap-2 text-white shadow-2xl">
+                    {(statusLabel === 'upcoming' || statusLabel === 'ongoing') && <span className="w-2 h-2 rounded-full animate-pulse inline-block" style={{ background: primaryColor }} />}
                     {statusLabel}
                 </span>
-                <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-gray-300 shadow-xl">
+                <span className="px-3 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded bg-black/80 backdrop-blur-md border border-white/20 text-white shadow-2xl">
                     {event.event_date ? new Date(event.event_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'TBA'}
                 </span>
             </div>
 
-            {/* Timer */}
+            {/* Timer Row */}
             {statusLabel === 'upcoming' && timeLeft && (
-                <div className="px-3 py-1.5 rounded-md bg-black/60 backdrop-blur-md border font-bold text-base tracking-widest text-white shadow-2xl" style={{ borderColor: `${primaryColor}40` }}>
+                <div className="self-center mt-2 px-5 py-2 rounded-lg bg-black/90 backdrop-blur-md border-2 font-bold text-base sm:text-lg tracking-[0.2em] text-white shadow-[0_0_30px_rgba(0,0,0,0.8)]" style={{ borderColor: primaryColor, textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
                     {timeLeft}
                 </div>
             )}
