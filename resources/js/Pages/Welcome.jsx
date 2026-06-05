@@ -2,7 +2,9 @@ import { Link } from '@inertiajs/react';
 import SeoMeta from '@/Components/SeoMeta';
 import Footer from '@/Components/Footer';
 import CardTopBar from '@/Components/CardTopBar';
-
+import Navbar from '@/Components/Navbar';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
 export default function Welcome({ auth, events, settings, testimonials, partners, highlights }) {
     const { scrollYProgress } = useScroll();
     const yHero = useTransform(scrollYProgress, [0, 1], [0, 300]);
