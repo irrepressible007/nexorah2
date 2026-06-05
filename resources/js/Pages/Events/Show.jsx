@@ -4,6 +4,7 @@ import Footer from '@/Components/Footer';
 import Navbar from '@/Components/Navbar';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import DOMPurify from 'dompurify';
 
 function Countdown({ targetDate, primaryColor }) {
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -69,7 +70,7 @@ export default function Show({ event, settings }) {
         <>
             <SeoMeta
                 title={event.title}
-                description={event.description ? event.description.substring(0, 160) : 'Join us for this upcoming event by Nexorah.'}
+                description={event.description ? event.description.replace(/<[^>]+>/g, '').substring(0, 160) : 'Join us for this upcoming event by Nexorah.'}
                 image={event.cover_image}
             />
             <div className="min-h-screen bg-black text-white font-sans selection:bg-pink-500 selection:text-white pb-32">
@@ -137,9 +138,12 @@ export default function Show({ event, settings }) {
                         <h3 className="text-sm font-black uppercase tracking-widest mb-6 pb-4 border-b border-white/8" style={{ color: primaryColor }}>
                             About The Event
                         </h3>
-                        <div className="text-gray-300 leading-relaxed text-lg font-light space-y-4">
+                        <div className="text-gray-300 leading-relaxed text-lg font-light">
                             {event.description ? (
-                                <p>{event.description}</p>
+                                <div 
+                                    className="nexorah-prose"
+                                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(event.description) }} 
+                                />
                             ) : (
                                 <p className="italic text-gray-500">Details for this spectacle are currently classified. Check back soon.</p>
                             )}

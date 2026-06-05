@@ -115,7 +115,7 @@ export default function Welcome({ auth, events, settings, testimonials, partners
                                                 {event.event_date ? new Date(event.event_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'TBA'}
                                             </p>
                                             <h4 className="text-2xl font-bold uppercase tracking-wide text-white drop-shadow-md">{event.title}</h4>
-                                            <p className="text-gray-400 mt-2 line-clamp-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">{event.description}</p>
+                                            <p className="text-gray-400 mt-2 line-clamp-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">{event.description?.replace(/<[^>]+>/g, '')}</p>
                                         </div>
                                     </motion.div>
                                 </Link>

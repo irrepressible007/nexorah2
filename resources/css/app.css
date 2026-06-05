@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -82,7 +82,7 @@
     text-shadow: 0 0 20px var(--primary-glow), 0 0 40px var(--primary-glow);
   }
 
-  /* Diagonal clip — bottom of hero sections */
+  /* Diagonal clip â€” bottom of hero sections */
   .clip-diagonal {
     clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
   }
@@ -145,7 +145,7 @@
 .animate-marquee-rev { animation: nexorah-marquee-reverse 40s linear infinite; }
 
 /* ============================================================
-   FORM INPUTS — FLOATING LABEL STYLE
+   FORM INPUTS â€” FLOATING LABEL STYLE
    ============================================================ */
 
 .input-nexorah {
@@ -239,4 +239,39 @@
   padding: 0.15em 0.4em;
   border-radius: 4px;
   font-size: 0.85em;
+}
+
+/* ============================================================
+   QUILL DARK MODE OVERRIDES
+   ============================================================ */
+.dark-quill .ql-toolbar {
+  background: rgba(255,255,255,0.05);
+  border: 0 !important;
+  border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 6px 6px 0 0;
+}
+.dark-quill .ql-container {
+  border: 0 !important;
+  border-radius: 0 0 6px 6px;
+  font-family: inherit;
+  font-size: inherit;
+}
+.dark-quill .ql-editor {
+  min-height: 200px;
+}
+.dark-quill .ql-stroke {
+  stroke: #ccc !important;
+}
+.dark-quill .ql-fill {
+  fill: #ccc !important;
+}
+.dark-quill .ql-picker {
+  color: #ccc !important;
+}
+.dark-quill .ql-picker-options {
+  background: #222 !important;
+  border-color: #444 !important;
+}
+.dark-quill .ql-snow .ql-picker.ql-expanded .ql-picker-label {
+  border-color: #444 !important;
 }

@@ -4,6 +4,8 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 export default function Form({ event }) {
     const isEditing = !!event.id;
@@ -69,13 +71,23 @@ export default function Form({ event }) {
 
                             <div>
                                 <InputLabel htmlFor="description" value="Description" />
-                                <textarea
-                                    id="description"
-                                    name="description"
-                                    value={data.description}
-                                    className="border-white/10 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block w-full h-32"
-                                    onChange={(e) => setData('description', e.target.value)}
-                                />
+                                <div className="mt-1 bg-white/5 border border-white/10 rounded-md overflow-hidden dark-quill">
+                                    <ReactQuill 
+                                        theme="snow"
+                                        value={data.description}
+                                        onChange={(content) => setData('description', content)}
+                                        className="text-gray-300"
+                                        modules={{
+                                            toolbar: [
+                                                [{ 'header': [2, 3, false] }],
+                                                ['bold', 'italic', 'underline', 'strike'],
+                                                [{'list': 'ordered'}, {'list': 'bullet'}],
+                                                ['link'],
+                                                ['clean']
+                                            ]
+                                        }}
+                                    />
+                                </div>
                                 <InputError message={errors.description} className="mt-2" />
                             </div>
 

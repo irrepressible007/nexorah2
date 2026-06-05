@@ -122,7 +122,7 @@ export default function Index({ events, settings }) {
                                                     {event.title}
                                                 </h4>
                                                 <p className="text-gray-400 mt-2 line-clamp-2 text-sm max-h-0 group-hover:max-h-20 overflow-hidden transition-all duration-500">
-                                                    {event.description}
+                                                    {event.description?.replace(/<[^>]+>/g, '')}
                                                 </p>
                                                 <motion.div
                                                     initial={{ opacity: 0 }}
