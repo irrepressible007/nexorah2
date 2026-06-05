@@ -5,6 +5,7 @@ import Navbar from '@/Components/Navbar';
 import PageHero from '@/Components/PageHero';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import CardTopBar from '@/Components/CardTopBar';
 
 const container = {
     hidden: {},
@@ -91,7 +92,8 @@ export default function Index({ events, settings }) {
                                                 e.currentTarget.style.boxShadow = 'none';
                                             }}
                                         >
-                                            <div className="aspect-[4/5] overflow-hidden bg-zinc-900">
+                                            <div className="aspect-[4/5] overflow-hidden bg-zinc-900 relative">
+                                                <CardTopBar event={event} primaryColor={primaryColor} />
                                                 <img
                                                     src={event.cover_image || `https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1000&auto=format&fit=crop&sig=${event.id}`}
                                                     className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-100"
@@ -102,22 +104,6 @@ export default function Index({ events, settings }) {
                                             </div>
 
                                             <div className="absolute bottom-0 left-0 p-7 w-full">
-                                                <p className="font-bold uppercase tracking-widest text-xs mb-3 flex items-center justify-between">
-                                                    <span style={{ color: primaryColor }}>
-                                                        {event.event_date ? new Date(event.event_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'TBA'}
-                                                    </span>
-                                                    <span className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] border rounded-full font-bold uppercase tracking-widest"
-                                                        style={{
-                                                            borderColor: event.status === 'upcoming' ? `${primaryColor}66` : 'rgba(255,255,255,0.15)',
-                                                            color: event.status === 'upcoming' ? primaryColor : '#6b7280',
-                                                        }}
-                                                    >
-                                                        {event.status === 'upcoming' && (
-                                                            <span className="inline-block w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: primaryColor }} />
-                                                        )}
-                                                        {event.status}
-                                                    </span>
-                                                </p>
                                                 <h4 className="text-2xl font-black uppercase tracking-tight text-white drop-shadow-md leading-tight">
                                                     {event.title}
                                                 </h4>

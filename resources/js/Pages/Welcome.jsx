@@ -1,9 +1,7 @@
 import { Link } from '@inertiajs/react';
 import SeoMeta from '@/Components/SeoMeta';
 import Footer from '@/Components/Footer';
-import Navbar from '@/Components/Navbar';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import CardTopBar from '@/Components/CardTopBar';
 
 export default function Welcome({ auth, events, settings, testimonials, partners, highlights }) {
     const { scrollYProgress } = useScroll();
@@ -107,13 +105,11 @@ export default function Welcome({ auth, events, settings, testimonials, partners
                                         transition={{ duration: 0.5, delay: 0.1 * index }}
                                     >
                                         <div className="aspect-[4/5] overflow-hidden rounded-lg bg-zinc-900 border border-zinc-800">
+                                            <CardTopBar event={event} primaryColor={primaryColor} />
                                             <img src={event.cover_image || `https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop&sig=${event.id}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 mix-blend-luminosity hover:mix-blend-normal" alt={event.title} />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
                                         </div>
                                         <div className="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                            <p className="font-bold uppercase tracking-widest text-xs mb-2" style={{ color: primaryColor }}>
-                                                {event.event_date ? new Date(event.event_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'TBA'}
-                                            </p>
                                             <h4 className="text-2xl font-bold uppercase tracking-wide text-white drop-shadow-md">{event.title}</h4>
                                             <p className="text-gray-400 mt-2 line-clamp-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">{event.description?.replace(/<[^>]+>/g, '')}</p>
                                         </div>
