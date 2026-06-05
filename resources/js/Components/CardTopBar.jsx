@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
 export default function CardTopBar({ event, primaryColor }) {
-    const [timeLeft, setTimeLeft] = useState(null);
     const [statusLabel, setStatusLabel] = useState(event.status);
 
     useEffect(() => {
@@ -12,19 +11,14 @@ export default function CardTopBar({ event, primaryColor }) {
         const calc = () => {
             const diff = new Date(event.event_date) - new Date();
             if (diff <= 0) {
-                setTimeLeft(null);
                 setStatusLabel('ongoing');
-                return;
+            } else {
+                setStatusLabel('upcoming');
             }
-            const d = Math.floor(diff / 86400000);
-            const h = Math.floor((diff % 86400000) / 3600000).toString().padStart(2, '0');
-            const m = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
-            const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
-            setTimeLeft(`${d}D : ${h}H : ${m}M : ${s}S`);
-            setStatusLabel('upcoming');
         };
         calc();
-        const id = setInterval(calc, 1000);
+        // Check once a minute in case it crosses the threshold while viewing
+        const id = setInterval(calc, 60000);
         return () => clearInterval(id);
     }, [event.event_date, event.status]);
 
@@ -40,13 +34,6 @@ export default function CardTopBar({ event, primaryColor }) {
                     {event.event_date ? new Date(event.event_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'TBA'}
                 </span>
             </div>
-
-            {/* Timer Row */}
-            {statusLabel === 'upcoming' && timeLeft && (
-                <div className="self-center mt-2 px-5 py-2 rounded-lg bg-black/90 backdrop-blur-md border-2 font-bold text-base sm:text-lg tracking-[0.2em] text-white shadow-[0_0_30px_rgba(0,0,0,0.8)]" style={{ borderColor: primaryColor, textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
-                    {timeLeft}
-                </div>
-            )}
         </div>
     );
 }
