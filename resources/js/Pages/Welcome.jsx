@@ -148,6 +148,7 @@ export default function Welcome({ auth, events, settings, testimonials, partners
                         { id: 'd7', title: 'Rooftop Soirée', description: 'Above the city, above the rest', media_type: 'image', media_path: 'https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=700&auto=format&fit=crop' },
                     ];
                     const displayItems = (highlights && highlights.length > 0) ? highlights : dummyHighlights;
+                    const shouldAnimateHighlights = displayItems.length > 4;
                     return (
                     <section className="py-24 bg-black overflow-hidden border-t border-zinc-900">
                         <motion.div
@@ -184,15 +185,15 @@ export default function Welcome({ auth, events, settings, testimonials, partners
                             <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-black to-transparent" />
 
                             <div
-                                className="flex gap-6 w-max"
-                                style={{
+                                className={`flex gap-6 ${shouldAnimateHighlights ? 'w-max' : 'w-full justify-center flex-wrap py-4'}`}
+                                style={shouldAnimateHighlights ? {
                                     animation: 'nexorah-marquee 40s linear infinite',
-                                }}
-                                onMouseEnter={(e) => e.currentTarget.style.animationPlayState = 'paused'}
-                                onMouseLeave={(e) => e.currentTarget.style.animationPlayState = 'running'}
+                                } : {}}
+                                onMouseEnter={(e) => shouldAnimateHighlights && (e.currentTarget.style.animationPlayState = 'paused')}
+                                onMouseLeave={(e) => shouldAnimateHighlights && (e.currentTarget.style.animationPlayState = 'running')}
                             >
-                                {/* Render items twice for seamless loop */}
-                                {[...displayItems, ...displayItems].map((item, index) => (
+                                {/* Render items twice for seamless loop only if animating */}
+                                {(shouldAnimateHighlights ? [...displayItems, ...displayItems] : displayItems).map((item, index) => (
                                     <div
                                         key={index}
                                         className="relative flex-shrink-0 w-72 h-52 md:w-96 md:h-64 rounded-2xl overflow-hidden group border border-white/5 shadow-2xl"
@@ -255,9 +256,9 @@ export default function Welcome({ auth, events, settings, testimonials, partners
                     </motion.div>
 
                     <div className="overflow-hidden w-full relative pb-12 pt-4">
-                        <div className="flex w-max animate-marquee hover:[animation-play-state:paused] gap-8 md:gap-12">
+                        <div className={`flex gap-8 md:gap-12 ${partners?.length > 4 ? 'w-max animate-marquee hover:[animation-play-state:paused]' : 'w-full justify-center flex-wrap'}`}>
                             {partners && partners.length > 0 ? (
-                                [...partners, ...partners].map((partner, index) => {
+                                (partners.length > 4 ? [...partners, ...partners] : partners).map((partner, index) => {
                                     const Content = (
                                         <div className="flex flex-col items-center justify-center text-center group cursor-pointer shrink-0 w-[85vw] md:w-[400px] h-auto min-h-[300px] bg-black border border-white/10 rounded-2xl shadow-2xl p-8 hover:border-pink-500/50 hover:-translate-y-2 transition-all duration-300">
                                             <div className="w-24 h-24 md:w-32 md:h-32 flex items-center justify-center mb-6">
@@ -319,9 +320,9 @@ export default function Welcome({ auth, events, settings, testimonials, partners
                     </motion.div>
 
                     <div className="overflow-hidden w-full relative py-8">
-                        <div className="flex w-max animate-marquee-rev hover:[animation-play-state:paused] gap-8">
+                        <div className={`flex gap-8 ${testimonials?.length > 4 ? 'w-max animate-marquee-rev hover:[animation-play-state:paused]' : 'w-full justify-center flex-wrap'}`}>
                             {testimonials && testimonials.length > 0 ? (
-                                [...testimonials, ...testimonials].map((testimonial, index) => (
+                                (testimonials.length > 4 ? [...testimonials, ...testimonials] : testimonials).map((testimonial, index) => (
                                     <div
                                         key={`${testimonial.id}-${index}`}
                                         className="bg-black border border-white/10 p-8 rounded-2xl shadow-2xl relative group shrink-0 w-[85vw] md:w-[400px] hover:scale-105 hover:rotate-1 transition-transform duration-300"
