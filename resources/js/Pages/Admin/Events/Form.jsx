@@ -9,6 +9,7 @@ export default function Form({ event }) {
     const isEditing = !!event.id;
 
     const { data, setData, post, put, processing, errors } = useForm({
+        _method: isEditing ? 'put' : 'post',
         title: event.title || '',
         description: event.description || '',
         event_date: event.event_date ? new Date(event.event_date).toISOString().slice(0, 16) : '',
@@ -28,7 +29,6 @@ export default function Form({ event }) {
         if (isEditing) {
             // For PUT requests with files in Laravel, we need to use POST and add _method='PUT'
             post(route('admin.events.update', event.id), {
-                _method: 'put',
                 forceFormData: true,
             });
         } else {
