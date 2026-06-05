@@ -108,7 +108,7 @@ export default function Welcome({ auth, events, settings, testimonials, partners
                                     >
                                         <div className="aspect-[4/5] overflow-hidden rounded-lg bg-zinc-900 border border-zinc-800">
                                             <CardTopBar event={event} primaryColor={primaryColor} />
-                                            <img src={event.cover_image || `https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop&sig=${event.id}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 mix-blend-luminosity hover:mix-blend-normal" alt={event.title} />
+                                            <img src={event.cover_image || `https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop&sig=${event.id}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={event.title} />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
                                         </div>
                                         <div className="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
@@ -263,7 +263,7 @@ export default function Welcome({ auth, events, settings, testimonials, partners
                                                     <img 
                                                         src={partner.logo_image} 
                                                         alt={partner.company_name} 
-                                                        className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500 opacity-80 group-hover:opacity-100" 
+                                                        className="max-w-full max-h-full object-contain transition-all duration-500 group-hover:scale-105" 
                                                     />
                                                 ) : (
                                                     <span className="text-white/20 font-bold tracking-widest uppercase text-xs">No Logo</span>

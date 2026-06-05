@@ -96,8 +96,7 @@ export default function Index({ events, settings }) {
                                                 <CardTopBar event={event} primaryColor={primaryColor} />
                                                 <img
                                                     src={event.cover_image || `https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1000&auto=format&fit=crop&sig=${event.id}`}
-                                                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-100"
-                                                    style={{ '--tw-scale-x': 1.08, '--tw-scale-y': 1.08 }}
+                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                                     alt={event.title}
                                                 />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent" />

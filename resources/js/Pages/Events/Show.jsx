@@ -252,7 +252,7 @@ export default function Show({ event, settings }) {
                                     <img
                                         src={media.file_path}
                                         alt={`Event Media ${index + 1}`}
-                                        className="w-full h-auto filter grayscale hover:grayscale-0 hover:scale-105 transition-all duration-700 cursor-pointer"
+                                        className="w-full h-auto hover:scale-105 transition-all duration-700 cursor-pointer"
                                     />
                                 </motion.div>
                             ))}
