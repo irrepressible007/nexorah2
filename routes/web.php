@@ -161,6 +161,16 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::delete('events/media/{media}', [EventController::class, 'destroyMedia'])->name('events.media.destroy');
+    // Explicit POST routes for updates to bypass strict cPanel/ModSecurity limitations with PUT/multipart data
+    Route::post('events/{event}', [EventController::class, 'update'])->name('events.update.post');
+    Route::post('posts/{post}', [PostController::class, 'update'])->name('posts.update.post');
+    Route::post('team/{team_member}', [TeamMemberController::class, 'update'])->name('team.update.post');
+    Route::post('partners/{partner}', [PartnerController::class, 'update'])->name('partners.update.post');
+    Route::post('faqs/{faq}', [FaqController::class, 'update'])->name('faqs.update.post');
+    Route::post('testimonials/{testimonial}', [TestimonialController::class, 'update'])->name('testimonials.update.post');
+    Route::post('highlights/{highlight}', [\App\Http\Controllers\Admin\HighlightController::class, 'update'])->name('highlights.update.post');
+    Route::post('inquiries/{inquiry}', [ContactInquiryController::class, 'update'])->name('inquiries.update.post');
+
     Route::resource('events', EventController::class);
     Route::resource('posts', PostController::class);
     Route::resource('team', TeamMemberController::class);
