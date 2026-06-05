@@ -189,8 +189,8 @@ export default function Welcome({ auth, events, settings, testimonials, partners
                                 onMouseEnter={(e) => e.currentTarget.style.animationPlayState = 'paused'}
                                 onMouseLeave={(e) => e.currentTarget.style.animationPlayState = 'running'}
                             >
-                                {/* Render items without forced duplication */}
-                                {displayItems.map((item, index) => (
+                                {/* Render items twice for seamless endless loop */}
+                                {[...displayItems, ...displayItems].map((item, index) => (
                                     <div
                                         key={index}
                                         className="relative flex-shrink-0 w-72 h-52 md:w-96 md:h-64 rounded-2xl overflow-hidden group border border-white/5 shadow-2xl"
@@ -227,8 +227,8 @@ export default function Welcome({ auth, events, settings, testimonials, partners
 
                         <style>{`
                             @keyframes nexorah-marquee {
-                                0% { transform: translateX(10vw); }
-                                100% { transform: translateX(-100%); }
+                                0% { transform: translateX(0); }
+                                100% { transform: translateX(-50%); }
                             }
                         `}</style>
                     </section>
@@ -255,7 +255,7 @@ export default function Welcome({ auth, events, settings, testimonials, partners
                     <div className="overflow-hidden w-full relative pb-12 pt-4 flex justify-center">
                         <div className="flex w-max animate-marquee hover:[animation-play-state:paused] gap-8 md:gap-12">
                             {partners && partners.length > 0 ? (
-                                partners.map((partner, index) => {
+                                [...partners, ...partners].map((partner, index) => {
                                     const Content = (
                                         <div className="flex flex-col items-center justify-center text-center group cursor-pointer shrink-0 w-[85vw] md:w-[400px] h-auto min-h-[300px] bg-black border border-white/10 rounded-2xl shadow-2xl p-8 hover:border-pink-500/50 hover:-translate-y-2 transition-all duration-300">
                                             <div className="w-24 h-24 md:w-32 md:h-32 flex items-center justify-center mb-6">
@@ -319,7 +319,7 @@ export default function Welcome({ auth, events, settings, testimonials, partners
                     <div className="overflow-hidden w-full relative py-8 flex justify-center">
                         <div className="flex w-max animate-marquee-rev hover:[animation-play-state:paused] gap-8">
                             {testimonials && testimonials.length > 0 ? (
-                                testimonials.map((testimonial, index) => (
+                                [...testimonials, ...testimonials].map((testimonial, index) => (
                                     <div
                                         key={`${testimonial.id}-${index}`}
                                         className="bg-black border border-white/10 p-8 rounded-2xl shadow-2xl relative group shrink-0 w-[85vw] md:w-[400px] hover:scale-105 hover:rotate-1 transition-transform duration-300"
