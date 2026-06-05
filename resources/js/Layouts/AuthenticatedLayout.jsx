@@ -23,6 +23,7 @@ export default function AuthenticatedLayout({ header, children }) {
                     <div className="space-y-1">
                         <NavLink href={route('dashboard')} active={route().current('dashboard')}>Dashboard</NavLink>
                         <NavLink href={route('admin.settings.index')} active={route().current('admin.settings.*')}>Settings</NavLink>
+                        <NavLink href={route('admin.logs.index')} active={route().current('admin.logs.*')}>Logs</NavLink>
                     </div>
                 </div>
 

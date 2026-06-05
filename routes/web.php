@@ -183,6 +183,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('subscribers', \App\Http\Controllers\Admin\SubscriberController::class)->only(['index', 'destroy']);
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('settings', [SettingController::class, 'update'])->name('settings.update');
+    
+    Route::get('logs', [\App\Http\Controllers\Admin\LogViewerController::class, 'index'])->name('logs.index');
+    Route::post('logs/clear', [\App\Http\Controllers\Admin\LogViewerController::class, 'clear'])->name('logs.clear');
 });
 
 Route::middleware('auth')->group(function () {
