@@ -24,6 +24,7 @@ export default function Form({ event }) {
         event_date: event.event_date ? new Date(event.event_date).toISOString().slice(0, 16) : '',
         location: event.location || '',
         status: event.status || 'draft',
+        display_order: event.display_order || 0,
         registration_link: event.registration_link || '',
         ambassador_link: event.ambassador_link || '',
         volunteer_link: event.volunteer_link || '',
@@ -178,6 +179,19 @@ export default function Form({ event }) {
                                     <option value="past">Past</option>
                                 </select>
                                 <InputError message={errors.status} className="mt-2" />
+                            </div>
+
+                            <div>
+                                <InputLabel htmlFor="display_order" value="Display Order (0 = First, 1 = Second, etc.)" />
+                                <TextInput
+                                    id="display_order"
+                                    type="number"
+                                    name="display_order"
+                                    value={data.display_order}
+                                    className="mt-1 block w-full"
+                                    onChange={(e) => setData('display_order', e.target.value)}
+                                />
+                                <InputError message={errors.display_order} className="mt-2" />
                             </div>
 
                             <div className="border-t border-white/5 pt-6 mt-6">

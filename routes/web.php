@@ -10,7 +10,8 @@ use App\Models\Testimonial;
 
 Route::get('/', function () {
     $upcomingEvents = Event::whereIn('status', ['upcoming', 'draft', 'past'])
-        ->orderBy('event_date', 'asc')
+        ->orderBy('display_order', 'asc')
+        ->orderBy('event_date', 'desc')
         ->take(3)
         ->get();
 
@@ -71,7 +72,7 @@ Route::get('/blog/{slug}', function ($slug) {
 })->name('blog.show');
 
 Route::get('/events', function () {
-    $events = Event::orderBy('event_date', 'asc')->paginate(12);
+    $events = Event::orderBy('display_order', 'asc')->orderBy('event_date', 'desc')->paginate(12);
     $settings = Setting::pluck('value', 'key')->toArray();
     $settings['primary_color'] = $settings['primary_color'] ?? '#ec4899';
     

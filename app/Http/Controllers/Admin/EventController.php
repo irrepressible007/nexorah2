@@ -14,7 +14,7 @@ class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::latest()->paginate(10);
+        $events = Event::orderBy('display_order', 'asc')->orderBy('event_date', 'desc')->paginate(10);
         return Inertia::render('Admin/Events/Index', [
             'events' => $events
         ]);
@@ -36,6 +36,7 @@ class EventController extends Controller
             'event_date' => 'nullable|date',
             'location' => 'nullable|string|max:255',
             'status' => 'required|in:draft,upcoming,past',
+            'display_order' => 'nullable|integer',
             'registration_link' => 'nullable|url|max:2000',
             'ambassador_link' => 'nullable|url|max:2000',
             'volunteer_link' => 'nullable|url|max:2000',
@@ -85,6 +86,7 @@ class EventController extends Controller
             'event_date' => 'nullable|date',
             'location' => 'nullable|string|max:255',
             'status' => 'required|in:draft,upcoming,past',
+            'display_order' => 'nullable|integer',
             'registration_link' => 'nullable|url|max:2000',
             'ambassador_link' => 'nullable|url|max:2000',
             'volunteer_link' => 'nullable|url|max:2000',
