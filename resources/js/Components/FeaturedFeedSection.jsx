@@ -188,7 +188,7 @@ export default function FeaturedFeedSection({ feeds, primaryColor }) {
     if (!feeds || feeds.length === 0) return null;
 
     return (
-        <section className="py-32 relative z-10 overflow-hidden bg-zinc-950 border-t border-b border-zinc-900">
+        <section className="pt-12 pb-16 relative z-10 overflow-hidden bg-transparent">
             {/* Background Glow */}
             <div 
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[150px] opacity-20 pointer-events-none"
@@ -197,11 +197,11 @@ export default function FeaturedFeedSection({ feeds, primaryColor }) {
 
             <div className="max-w-7xl mx-auto px-6 lg:px-20">
                 <motion.div 
-                    initial={{ opacity: 0, y: 50 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.8 }}
-                    className="text-center mb-16 relative z-10"
+                    className="text-center mb-10 relative z-10"
                 >
                     <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-white">
                         Featured <span style={{ color: primaryColor }}>Updates</span>

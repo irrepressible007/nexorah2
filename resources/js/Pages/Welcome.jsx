@@ -83,7 +83,7 @@ export default function Welcome({ auth, events, settings, testimonials, partners
                 <FeaturedFeedSection feeds={featuredFeeds} primaryColor={primaryColor} />
 
                 {/* Upcoming Events Section */}
-                <section className="py-32 px-6 lg:px-20 bg-black">
+                <section className="pt-16 pb-32 px-6 lg:px-20 bg-black">
                     <motion.div 
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
