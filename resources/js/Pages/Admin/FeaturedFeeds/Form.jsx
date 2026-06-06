@@ -2,7 +2,6 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
-import CardTopBar from '@/Components/CardTopBar';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -67,7 +66,9 @@ export default function Form({ feed }) {
             <div className="py-12">
                 <div className="mx-auto max-w-4xl sm:px-6 lg:px-8">
                     <div className="bg-[#111] border border-white/5 shadow-2xl sm:rounded-2xl backdrop-blur-md overflow-hidden">
-                        <CardTopBar title={isEditing ? 'Post Details' : 'New Post'} />
+                        <div className="p-6 bg-white/5 border-b border-white/5">
+                            <h3 className="text-lg font-bold text-white uppercase tracking-widest">{isEditing ? 'Post Details' : 'New Post'}</h3>
+                        </div>
                         
                         <form onSubmit={submit} className="p-6 space-y-6">
                             
