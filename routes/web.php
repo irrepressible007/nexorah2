@@ -28,6 +28,12 @@ Route::get('/', function () {
     $partners = \App\Models\Partner::orderBy('display_order')->get();
     $highlights = \App\Models\Highlight::orderBy('display_order')->get();
 
+    $featuredFeeds = \App\Models\FeaturedFeed::with('comments')
+        ->where('is_active', true)
+        ->orderBy('created_at', 'desc')
+        ->take(10)
+        ->get();
+
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -36,6 +42,7 @@ Route::get('/', function () {
         'testimonials' => $testimonials,
         'partners' => $partners,
         'highlights' => $highlights,
+        'featuredFeeds' => $featuredFeeds,
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
@@ -146,6 +153,21 @@ Route::post('/subscribe', function (\Illuminate\Http\Request $request) {
     return back()->with('success', 'Welcome to the Vanguard! You have successfully subscribed.');
 })->name('subscribe');
 
+Route::post('/featured-feeds/{featuredFeed}/like', function (\App\Models\FeaturedFeed $featuredFeed) {
+    $featuredFeed->increment('likes_count');
+    return back();
+})->name('featured-feeds.like');
+
+Route::post('/featured-feeds/{featuredFeed}/comment', function (\Illuminate\Http\Request $request, \App\Models\FeaturedFeed $featuredFeed) {
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'comment' => 'required|string|max:1000',
+    ]);
+    
+    $featuredFeed->comments()->create($validated);
+    return back()->with('success', 'Comment posted successfully!');
+})->name('featured-feeds.comment');
+
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\PostController;
@@ -171,6 +193,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::post('testimonials/{testimonial}', [TestimonialController::class, 'update'])->name('testimonials.update.post');
     Route::post('highlights/{highlight}', [\App\Http\Controllers\Admin\HighlightController::class, 'update'])->name('highlights.update.post');
     Route::post('inquiries/{inquiry}', [ContactInquiryController::class, 'update'])->name('inquiries.update.post');
+    Route::post('featured-feeds/{featured_feed}', [\App\Http\Controllers\Admin\FeaturedFeedController::class, 'update'])->name('featured-feeds.update.post');
 
     Route::resource('events', EventController::class);
     Route::resource('posts', PostController::class);
@@ -180,6 +203,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('testimonials', TestimonialController::class);
     Route::resource('highlights', \App\Http\Controllers\Admin\HighlightController::class);
     Route::resource('inquiries', ContactInquiryController::class);
+    Route::resource('featured-feeds', \App\Http\Controllers\Admin\FeaturedFeedController::class);
     Route::resource('subscribers', \App\Http\Controllers\Admin\SubscriberController::class)->only(['index', 'destroy']);
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('settings', [SettingController::class, 'update'])->name('settings.update');

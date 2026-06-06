@@ -3,9 +3,10 @@ import SeoMeta from '@/Components/SeoMeta';
 import Footer from '@/Components/Footer';
 import CardTopBar from '@/Components/CardTopBar';
 import Navbar from '@/Components/Navbar';
+import FeaturedFeedSection from '@/Components/FeaturedFeedSection';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
-export default function Welcome({ auth, events, settings, testimonials, partners, highlights }) {
+export default function Welcome({ auth, events, settings, testimonials, partners, highlights, featuredFeeds }) {
     const { scrollYProgress } = useScroll();
     const yHero = useTransform(scrollYProgress, [0, 1], [0, 300]);
 
@@ -77,6 +78,9 @@ export default function Welcome({ auth, events, settings, testimonials, partners
                         </motion.div>
                     </div>
                 </section>
+
+                {/* Featured Feed Section */}
+                <FeaturedFeedSection feeds={featuredFeeds} primaryColor={primaryColor} />
 
                 {/* Upcoming Events Section */}
                 <section className="py-32 px-6 lg:px-20 bg-black">

@@ -38,6 +38,7 @@ export default function AuthenticatedLayout({ header, children }) {
                         <NavLink href={route('admin.testimonials.index')} active={route().current('admin.testimonials.*')}>Testimonials</NavLink>
                         <NavLink href={route('admin.inquiries.index')} active={route().current('admin.inquiries.*')}>Inquiries</NavLink>
                         <NavLink href={route('admin.highlights.index')} active={route().current('admin.highlights.*')}>Highlights</NavLink>
+                        <NavLink href={route('admin.featured-feeds.index')} active={route().current('admin.featured-feeds.*')}>Featured Feed</NavLink>
                     </div>
                 </div>
             </div>
