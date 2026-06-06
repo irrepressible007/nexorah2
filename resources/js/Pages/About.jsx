@@ -166,18 +166,18 @@ export default function About({ team, faqs, partners, settings }) {
                                         whileHover={{ scale: 1.1, opacity: 1 }}
                                         viewport={{ once: true }}
                                         transition={{ duration: 0.5, delay: index * 0.08 }}
-                                        className="opacity-40 hover:opacity-100 transition-all duration-300 w-28 md:w-36"
+                                        className="transition-transform hover:scale-110 duration-300 w-28 md:w-36"
                                     >
                                         {partner.website_url ? (
                                             <a href={partner.website_url} target="_blank" rel="noopener noreferrer">
                                                 {partner.logo_image
-                                                    ? <img src={partner.logo_image} alt={partner.company_name} className="w-full h-auto filter invert" />
+                                                    ? <img src={partner.logo_image} alt={partner.company_name} className="w-full h-auto" />
                                                     : <span className="text-lg font-black uppercase tracking-wider text-white">{partner.company_name}</span>
                                                 }
                                             </a>
                                         ) : (
                                             partner.logo_image
-                                                ? <img src={partner.logo_image} alt={partner.company_name} className="w-full h-auto filter invert" />
+                                                ? <img src={partner.logo_image} alt={partner.company_name} className="w-full h-auto" />
                                                 : <span className="text-lg font-black uppercase tracking-wider text-white">{partner.company_name}</span>
                                         )}
                                     </motion.div>
