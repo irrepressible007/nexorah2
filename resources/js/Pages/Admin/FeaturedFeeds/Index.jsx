@@ -1,7 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, router } from '@inertiajs/react';
 import { Plus, Edit, Trash } from 'lucide-react';
-import CardTopBar from '@/Components/CardTopBar';
 
 export default function Index({ feeds }) {
     const handleDelete = (feed) => {
@@ -31,7 +30,9 @@ export default function Index({ feeds }) {
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="bg-[#111] border border-white/5 shadow-2xl sm:rounded-2xl backdrop-blur-md overflow-hidden">
-                        <CardTopBar title="Manage Featured Feed" />
+                        <div className="p-6 bg-white/5 border-b border-white/5">
+                            <h3 className="text-lg font-bold text-white uppercase tracking-widest">Manage Featured Feed</h3>
+                        </div>
                         
                         <div className="overflow-x-auto">
                             <table className="min-w-full divide-y divide-white/10">
