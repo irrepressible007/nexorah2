@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
-        <link rel="icon" type="image/png" href="/logo/Nexorah New logo.png" />
+        <link rel="icon" type="image/jpeg" href="/logo/Nexorah thumbnail.jpeg" />
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
