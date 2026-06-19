@@ -1,6 +1,7 @@
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useState, useRef } from 'react';
+import { TextHoverEffect, FooterBackgroundGradient } from './ui/hover-footer';
 
 const SocialIcon = ({ href, label, children, delay }) => (
     href ? (
@@ -194,8 +195,13 @@ export default function Footer({ settings }) {
                     </div>
                 </div>
 
+                {/* Text hover effect */}
+                <div className="lg:flex hidden h-[20rem] -mt-10 mb-10 w-full">
+                    <TextHoverEffect text="NEXORAH" className="z-50" />
+                </div>
+
                 {/* Bottom Bar */}
-                <div className="flex flex-col md:flex-row justify-between items-center border-t border-white/10 pt-8 mt-8">
+                <div className="flex flex-col md:flex-row justify-between items-center border-t border-white/10 pt-8 relative z-50">
                     <p className="text-xs text-gray-500 font-bold tracking-[0.2em] uppercase order-2 md:order-1 mt-6 md:mt-0">
                         © {new Date().getFullYear()} Nexorah. All Rights Reserved.
                     </p>
@@ -210,6 +216,8 @@ export default function Footer({ settings }) {
                     </motion.button>
                 </div>
             </div>
+
+            <FooterBackgroundGradient />
         </footer>
     );
 }
