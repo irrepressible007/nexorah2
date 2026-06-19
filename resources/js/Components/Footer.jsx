@@ -196,8 +196,8 @@ export default function Footer({ settings }) {
                 </div>
 
                 {/* Text hover effect */}
-                <div className="lg:flex hidden h-[20rem] -mt-10 mb-10 w-full">
-                    <TextHoverEffect text="NEXORAH" className="z-50" />
+                <div className="flex h-[8rem] sm:h-[12rem] md:h-[16rem] lg:h-[20rem] mt-4 lg:-mt-10 mb-10 w-full items-center justify-center">
+                    <TextHoverEffect text="NEXORAH" className="z-50 w-full h-full" />
                 </div>
 
                 {/* Bottom Bar */}
