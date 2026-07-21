@@ -8,6 +8,13 @@ use App\Models\Event;
 use App\Models\Setting;
 use App\Models\Testimonial;
 
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/run-migrations', function () {
+    Artisan::call('migrate', ['--force' => true]);
+    return 'Migrations executed successfully!';
+});
+
 Route::get('/', function () {
     $upcomingEvents = Event::whereIn('status', ['upcoming', 'draft', 'past'])
         ->orderBy('display_order', 'asc')
