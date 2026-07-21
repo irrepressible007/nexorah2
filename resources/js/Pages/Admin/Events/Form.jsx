@@ -20,6 +20,7 @@ export default function Form({ event }) {
     const { data, setData, post, put, processing, errors } = useForm({
         _method: isEditing ? 'put' : 'post',
         title: event.title || '',
+        short_description: event.short_description || '',
         description: event.description || '',
         event_date: event.event_date ? new Date(event.event_date).toISOString().slice(0, 16) : '',
         location: event.location || '',
@@ -93,7 +94,21 @@ export default function Form({ event }) {
                             </div>
 
                             <div>
-                                <InputLabel htmlFor="description" value="Description" />
+                                <InputLabel htmlFor="short_description" value="Short Description (Appears before 'Read More')" />
+                                <div className="mt-1 bg-white/5 border border-white/10 rounded-md overflow-hidden dark-quill">
+                                    <ReactQuill 
+                                        theme="snow"
+                                        value={data.short_description}
+                                        onChange={(content) => setData('short_description', content)}
+                                        className="text-gray-300 bg-white dark:bg-gray-900 rounded-md"
+                                        modules={modules}
+                                    />
+                                </div>
+                                <InputError message={errors.short_description} className="mt-2" />
+                            </div>
+
+                            <div>
+                                <InputLabel htmlFor="description" value="Full Description (Appears after 'Read More')" />
                                 <div className="mt-1 bg-white/5 border border-white/10 rounded-md overflow-hidden dark-quill">
                                     <ReactQuill 
                                         theme="snow"

@@ -63,8 +63,8 @@ function Countdown({ targetDate, primaryColor }) {
 
 export default function Show({ event, settings }) {
     const primaryColor = settings?.primary_color || '#ec4899';
-    const handleRegister = (type) => alert(`Registration for ${type} will be implemented soon!`);
     const isUpcoming = event.status === 'upcoming' && event.event_date;
+    const [showFullDetails, setShowFullDetails] = useState(false);
 
     return (
         <>
@@ -126,40 +126,69 @@ export default function Show({ event, settings }) {
                 </div>
 
                 {/* Content Area */}
-                <main className="px-6 lg:px-20 max-w-6xl mx-auto mt-16 flex flex-col lg:flex-row gap-16">
+                <main className="px-6 lg:px-20 max-w-4xl mx-auto mt-16 flex flex-col gap-16 relative">
                     {/* Description */}
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.7 }}
-                        className="lg:w-2/3"
+                        className="w-full"
                     >
                         <h3 className="text-sm font-black uppercase tracking-widest mb-6 pb-4 border-b border-white/8" style={{ color: primaryColor }}>
                             About The Event
                         </h3>
+                        
+                        {/* Short Description (Summary) */}
                         <div className="text-gray-300 leading-relaxed text-lg font-light">
-                            {event.description ? (
+                            {event.short_description ? (
                                 <div 
                                     className="nexorah-prose"
-                                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(event.description) }} 
+                                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(event.short_description) }} 
                                 />
-                            ) : (
+                            ) : event.description ? null : (
                                 <p className="italic text-gray-500">Details for this spectacle are currently classified. Check back soon.</p>
                             )}
                         </div>
+
+                        {/* See More Button */}
+                        {event.description && !showFullDetails && (
+                            <button 
+                                onClick={() => setShowFullDetails(true)} 
+                                className="mt-6 font-bold uppercase text-xs tracking-widest hover:opacity-80 transition-opacity flex items-center gap-2 px-6 py-3 rounded-full border border-white/20"
+                                style={{ color: primaryColor }}
+                            >
+                                See More Details
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                            </button>
+                        )}
+
+                        {/* Full Description */}
+                        {event.description && (
+                            <motion.div 
+                                initial={false}
+                                animate={{ height: showFullDetails ? 'auto' : 0, opacity: showFullDetails ? 1 : 0 }}
+                                className="overflow-hidden"
+                            >
+                                <div 
+                                    className="mt-8 text-gray-300 leading-relaxed text-lg font-light nexorah-prose border-t border-white/10 pt-8"
+                                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(event.description) }} 
+                                />
+                            </motion.div>
+                        )}
                     </motion.div>
 
-                    {/* Sticky Sidebar */}
+                    {/* Registration Section Below Summary */}
                     <motion.div
+                        id="registration-section"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.7, delay: 0.15 }}
-                        className="lg:w-1/3 lg:sticky lg:top-28 self-start"
+                        className="w-full"
                     >
                         <div
-                            className="p-8 rounded-2xl space-y-6 relative overflow-hidden"
+                            className="p-8 md:p-12 rounded-3xl space-y-8 relative overflow-hidden text-center"
                             style={{
                                 background: 'rgba(255,255,255,0.03)',
                                 border: '1px solid rgba(255,255,255,0.07)',
@@ -167,31 +196,23 @@ export default function Show({ event, settings }) {
                             }}
                         >
                             {/* Glow orb */}
-                            <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full blur-3xl pointer-events-none" style={{ background: `${primaryColor}15` }} />
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full blur-3xl pointer-events-none" style={{ background: `${primaryColor}15` }} />
 
-                            <h3 className="text-lg font-black uppercase tracking-widest text-white text-center">Join The Experience</h3>
+                            <h3 className="text-xl font-black uppercase tracking-widest text-white relative z-10">Join The Experience</h3>
 
-                            <div className="flex flex-col gap-3">
+                            <div className="flex flex-col md:flex-row gap-4 justify-center relative z-10 max-w-2xl mx-auto">
                                 {event.registration_link && (
                                     <motion.a
                                         href={event.registration_link}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        whileHover={{ scale: 1.03 }}
-                                        whileTap={{ scale: 0.97 }}
-                                        className="w-full py-4 px-6 text-black font-black uppercase tracking-widest text-xs shadow-lg rounded-lg text-center block"
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className="flex-1 py-4 px-6 text-black font-black uppercase tracking-widest text-xs shadow-2xl rounded-xl"
                                         style={{ background: primaryColor }}
                                     >
                                         Register Now
                                     </motion.a>
-                                )}
-
-                                {event.registration_link && (event.ambassador_link || event.volunteer_link) && (
-                                    <div className="flex items-center gap-4 py-2">
-                                        <div className="flex-1 h-px bg-white/8" />
-                                        <span className="text-gray-600 text-xs uppercase tracking-widest">or</span>
-                                        <div className="flex-1 h-px bg-white/8" />
-                                    </div>
                                 )}
 
                                 {event.ambassador_link && (
@@ -200,9 +221,9 @@ export default function Show({ event, settings }) {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         whileHover={{ borderColor: 'rgba(255,255,255,0.4)', scale: 1.02 }}
-                                        className="w-full py-3 px-6 bg-transparent border border-white/10 text-white font-bold uppercase tracking-wider text-xs rounded-lg transition-colors text-center block"
+                                        className="flex-1 py-4 px-6 bg-transparent border border-white/10 text-white font-bold uppercase tracking-wider text-xs rounded-xl transition-colors"
                                     >
-                                        Become a Campus Ambassador
+                                        Become an Ambassador
                                     </motion.a>
                                 )}
 
@@ -212,16 +233,16 @@ export default function Show({ event, settings }) {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         whileHover={{ borderColor: 'rgba(255,255,255,0.4)', scale: 1.02 }}
-                                        className="w-full py-3 px-6 bg-transparent border border-white/10 text-white font-bold uppercase tracking-wider text-xs rounded-lg transition-colors text-center block"
+                                        className="flex-1 py-4 px-6 bg-transparent border border-white/10 text-white font-bold uppercase tracking-wider text-xs rounded-xl transition-colors"
                                     >
                                         Volunteer
                                     </motion.a>
                                 )}
-
-                                {!event.registration_link && !event.ambassador_link && !event.volunteer_link && (
-                                    <p className="text-center text-xs text-gray-500 uppercase tracking-widest mt-2">Registration details TBA</p>
-                                )}
                             </div>
+
+                            {!event.registration_link && !event.ambassador_link && !event.volunteer_link && (
+                                <p className="text-center text-xs text-gray-500 uppercase tracking-widest mt-2 relative z-10">Registration details TBA</p>
+                            )}
                         </div>
                     </motion.div>
                 </main>
@@ -262,6 +283,35 @@ export default function Show({ event, settings }) {
 
                 <Footer settings={settings} />
             </div>
+
+            {/* Floating Registration Button */}
+            {(event.registration_link || event.ambassador_link || event.volunteer_link) && (
+                <motion.div 
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1, duration: 0.5 }}
+                    className="fixed bottom-8 right-8 z-[100]"
+                >
+                    <button 
+                        onClick={() => {
+                            const section = document.getElementById('registration-section');
+                            if (section) {
+                                const offset = 100;
+                                const bodyRect = document.body.getBoundingClientRect().top;
+                                const elementRect = section.getBoundingClientRect().top;
+                                const elementPosition = elementRect - bodyRect;
+                                const offsetPosition = elementPosition - offset;
+                                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                            }
+                        }}
+                        className="px-6 py-4 rounded-full text-black font-black uppercase tracking-widest text-xs shadow-[0_0_40px_rgba(0,0,0,0.5)] hover:scale-110 transition-transform flex items-center gap-2"
+                        style={{ background: primaryColor, boxShadow: `0 0 30px ${primaryColor}66` }}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        Join Now
+                    </button>
+                </motion.div>
+            )}
         </>
     );
 }
