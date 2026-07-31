@@ -30,6 +30,7 @@ class SettingController extends Controller
             'social_instagram' => 'https://instagram.com/nexorah',
             'social_linkedin' => 'https://linkedin.com/company/nexorah',
             'primary_color' => '#ec4899', // pink-500
+            'meta_pixel_id' => '1382756323752126',
         ];
 
         $settings = array_merge($defaultSettings, $settings);
@@ -57,6 +58,7 @@ class SettingController extends Controller
             'social_instagram' => 'nullable|url|max:255',
             'social_linkedin' => 'nullable|url|max:255',
             'primary_color' => 'nullable|string|max:20',
+            'meta_pixel_id' => 'nullable|string|max:100',
         ]);
 
         foreach ($data as $key => $value) {

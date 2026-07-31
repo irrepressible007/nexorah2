@@ -1,9 +1,16 @@
 import '../css/app.css';
 import './bootstrap';
 
-import { createInertiaApp } from '@inertiajs/react';
+import { createInertiaApp, router } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
+
+// Track Meta Pixel PageView on Inertia SPA route navigation
+router.on('navigate', () => {
+    if (typeof window !== 'undefined' && window.fbq) {
+        window.fbq('track', 'PageView');
+    }
+});
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 

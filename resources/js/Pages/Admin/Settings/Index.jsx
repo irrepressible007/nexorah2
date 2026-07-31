@@ -22,6 +22,7 @@ export default function Index({ settings }) {
         social_instagram: settings.social_instagram || '',
         social_linkedin: settings.social_linkedin || '',
         primary_color: settings.primary_color || '#ec4899',
+        meta_pixel_id: settings.meta_pixel_id || '1382756323752126',
     });
 
     const submit = (e) => {
@@ -258,6 +259,25 @@ export default function Index({ settings }) {
                                         onChange={(e) => setData('social_linkedin', e.target.value)}
                                     />
                                     <InputError message={errors.social_linkedin} className="mt-2" />
+                                </div>
+                            </div>
+
+                            <h3 className="text-lg font-medium text-white font-bold border-b border-white/5 pb-2 mt-12">Marketing & Pixel Tracking</h3>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                                <div className="md:col-span-2">
+                                    <InputLabel htmlFor="meta_pixel_id" value="Meta (Facebook) Pixel ID" />
+                                    <TextInput
+                                        id="meta_pixel_id"
+                                        type="text"
+                                        name="meta_pixel_id"
+                                        value={data.meta_pixel_id}
+                                        placeholder="e.g. 1382756323752126"
+                                        className="mt-1 block w-full font-mono text-sm"
+                                        onChange={(e) => setData('meta_pixel_id', e.target.value)}
+                                    />
+                                    <p className="text-xs text-gray-500 mt-1">This Meta Pixel ID will be dynamically injected into all pages to track PageView and ViewContent events across Nexorah.</p>
+                                    <InputError message={errors.meta_pixel_id} className="mt-2" />
                                 </div>
                             </div>
 
