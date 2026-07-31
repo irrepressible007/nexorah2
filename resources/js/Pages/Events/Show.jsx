@@ -66,15 +66,6 @@ export default function Show({ event, settings }) {
     const isUpcoming = event.status === 'upcoming' && event.event_date;
     const [showFullDetails, setShowFullDetails] = useState(false);
 
-    useEffect(() => {
-        if (typeof window !== 'undefined' && window.fbq && event?.title) {
-            window.fbq('track', 'ViewContent', {
-                content_name: event.title,
-                content_category: 'Event'
-            });
-        }
-    }, [event?.title]);
-
     return (
         <>
             <SeoMeta
